@@ -3,6 +3,7 @@ package fr.pizzeria.console;
 import java.util.Scanner;
 import fr.pizzeria.services.*;
 import fr.pizzeria.dao.*;
+import fr.pizzeria.exception.StockageException;
 
 public class PizzeriaAdminConsoleApp {
 
@@ -20,19 +21,15 @@ public class PizzeriaAdminConsoleApp {
 				+ "\n99. Sortir");
 		int a = Integer.parseInt(questionUser.next());	
 		MenuService service=MenuServiceFactory.getInstance(a);
-		if(a==1){
-			service.executeUC(questionUser, dao);
+		if(a!=99){
+			try {
+				service.executeUC(questionUser, dao);
+			} catch (StockageException e) {
+				System.out.println(e.getMessage());
+			}
 		}
-		if(a==2){
-			service.executeUC(questionUser, dao);
-		}
-		if(a==3){
-			service.executeUC(questionUser, dao);
-		}
-		if(a==4){
-			service.executeUC(questionUser, dao);
-		}
-		if(a==99){
+
+		else{
 			System.out.println("Aurevoir \u2639");
 			break;
 		}
