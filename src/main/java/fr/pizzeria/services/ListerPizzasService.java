@@ -13,7 +13,8 @@ public class ListerPizzasService extends MenuService{
 		for(Pizza pizza : local){
 			System.out.println(pizza.getCode() + "->" 
 		+ pizza.getLibelle() 
-		+ " (" + pizza.getPrix() + ")");
+		+ " (" + pizza.getPrix() + ")"
+		+ pizza.getCategorie());
 		}
 	}
 }

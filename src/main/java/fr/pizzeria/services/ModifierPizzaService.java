@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 import fr.pizzeria.dao.PizzaMemDao;
 import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaService extends MenuService{
 	public void executeUC(Scanner scanner, PizzaMemDao dao) throws UpdatePizzaException{
-		String m, b, c;
+		String m, b, c, categorie;
 		double d;
 		System.out.println("Mise à jour d'une pizza");
 		System.out.println("Veuillez choisir le code de la pizza à modifier");
@@ -25,6 +26,13 @@ public class ModifierPizzaService extends MenuService{
 		if(d<1){
 			throw new UpdatePizzaException("Le prix est trop bas ou négatif");
 		}
-		dao.updatePizza(m, new Pizza(b,c,d));
+		System.out.println("Quelle categorie : VIANDE, SANS_VIANDE, POISSON ");
+		categorie = scanner.next();
+		categorie = categorie.toUpperCase();
+		categorie = categorie.replace('8', '-');
+		if(!CategoriePizza.exists(categorie)){
+			throw new UpdatePizzaException("La categorie n'est pas valide");
+		}
+		dao.updatePizza(m, new Pizza(b,c,d, CategoriePizza.valueOf(categorie)));
 	}
 }
