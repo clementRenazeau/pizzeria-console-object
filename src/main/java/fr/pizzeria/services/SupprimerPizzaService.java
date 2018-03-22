@@ -12,10 +12,7 @@ public class SupprimerPizzaService extends MenuService{
 		System.out.println("Suppression d'une pizza");
 		System.out.println("Liste des pizzas");
 		for(Pizza pizza : local){
-			System.out.println(pizza.getCode() + "->" 
-		+ pizza.getLibelle() 
-		+ " (" + pizza.getPrix() + ")"
-		+ pizza.getCategorie());
+			System.out.println(pizza.toString());
 		}
 		String b;
 		System.out.println("Veuillez choisir le code de la pizza à supprimer");

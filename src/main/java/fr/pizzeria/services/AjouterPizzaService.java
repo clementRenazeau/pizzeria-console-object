@@ -24,7 +24,7 @@ public class AjouterPizzaService extends MenuService{
 		System.out.println("Quelle categorie : VIANDE, SANS_VIANDE, POISSON ");
 		categorie = scanner.next();
 		categorie = categorie.toUpperCase();
-		categorie = categorie.replace('8', '-');
+		categorie = categorie.replace('8', '_');
 		if(!CategoriePizza.exists(categorie)){
 			throw new UpdatePizzaException("La categorie n'est pas valide");
 		}
