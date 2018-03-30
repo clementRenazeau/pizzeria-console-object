@@ -7,9 +7,9 @@ import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class PizzaMemDao implements PizzaDao {
-	private static List<Pizza> listOfPizza= new ArrayList<Pizza>();
+	private List<Pizza> listOfPizza= new ArrayList<Pizza>();
 	
-	static{
+	public PizzaMemDao(){
 		listOfPizza.add(new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
 		listOfPizza.add(new Pizza("MAR", "Margherita", 14.00, CategoriePizza.SANS_VIANDE));
 		listOfPizza.add(new Pizza("REIN", "La_Reine", 11.50, CategoriePizza.VIANDE));
@@ -28,12 +28,13 @@ public class PizzaMemDao implements PizzaDao {
 		listOfPizza.add(pizza);	
 	}
 
-	public Pizza findPizzaByCode(String codePizza) {
-		int place=0;
-		while(!listOfPizza.get(place).getCode().contentEquals(codePizza)){
-			++place;
+	public Pizza findPizzaByCode(String codePizza){
+		for(Pizza p: findAllPizzas()){
+			if(p!=null && p.getCode()!=null && p.getCode().equals(codePizza)){
+				return p;
+			}
 		}
-		return listOfPizza.get(place);
+		return null;
 	}
 	
 	public void updatePizza(String codePizza, Pizza pizza) {
@@ -41,16 +42,18 @@ public class PizzaMemDao implements PizzaDao {
 	}
 
 	public void deletePizza(String codePizza) {
-		listOfPizza.remove(findPizzaByCode(codePizza));
+		if(pizzaExists(codePizza)){
+			listOfPizza.remove(findPizzaByCode(codePizza));
+		}
 	}
 
 	public boolean pizzaExists(String codePizza) {
-		int place=0;
-		while(!listOfPizza.get(place).getCode().contentEquals(codePizza) 
-				&& (place<listOfPizza.size()-1)){
-			++place;
+		for(Pizza p: findAllPizzas()){
+			if(p!=null && p.getCode()!=null && p.getCode().equals(codePizza)){
+				return true;
+			}
 		}
-		return (listOfPizza.get(place).getCode().contentEquals(codePizza))?true:false;
+		return false;
 	}
 
 }

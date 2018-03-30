@@ -1,7 +1,6 @@
 package fr.pizzeria.model;
 
-import java.lang.reflect.Field;
-
+import fr.pizzeria.utils.StringUtils;
 import fr.pizzeria.utils.ToString;
 
 public class Pizza {
@@ -31,38 +30,7 @@ public class Pizza {
 		this.categorie=categorie;
 	}
 	public String toString(){
-		Class<Pizza> cl = Pizza.class;
-		Field[] attributs = cl.getDeclaredFields();
-		
-		String chaine = "";
-		
-		try{
-			//boucle sur les attributs
-			for(Field attr : attributs){
-				//Permet de vérifier si une annotation est présente sur l'attribut
-				if(attr.isAnnotationPresent(ToString.class)){
-					//Je récupère l'annotation ToString
-					ToString annotation = attr.getAnnotation(ToString.class);
-					//Je récupère la valeur de la propritété toUpperCase de l'annotation
-					boolean uppercase = annotation.uppercase();
-					//Récupération de la valeur de l'attribut pour l'instance courante
-					Object value=attr.get(this);
-					//Récupération du séparateur
-					String sepa = annotation.separateur();
-					
-					String valueStr = value.toString();
-					if(uppercase){
-						valueStr = valueStr.toUpperCase();
-					}
-					//Ajout de la valeur de l'attribut à la chaine de caractères
-					chaine += valueStr + sepa;
-				}
-			}
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		return chaine;				
+	return StringUtils.toString(this);
 	}
 	public int getId() {
 		return id;
