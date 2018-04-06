@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import com.lowagie.text.DocumentException;
 
 import fr.pizzeria.dao.PizzaDao;
+import fr.pizzeria.dao.PizzaJDBCDao;
 import fr.pizzeria.dao.PizzaMemDao;
 import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.services.MenuService;
@@ -18,7 +19,7 @@ public class PizzeriaAdminConsoleApp {
     //public static final String RESULT = "c:/Users/ETY1/Desktop/javaAO/tp2/hello.pdf";
 	public static void main(String[] args){ 
 		Scanner questionUser = new Scanner(System.in);
-		PizzaDao dao= new PizzaMemDao();
+		PizzaDao dao= new PizzaJDBCDao();
 		
 		/*try {
 			new createPdf(RESULT);
